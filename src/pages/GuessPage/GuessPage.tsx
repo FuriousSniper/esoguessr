@@ -1,5 +1,5 @@
-import { Layout, Spin, Image as AntdImage, Button, Typography, Progress, Card } from 'antd';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
+import { Layout, Spin, Image as AntdImage, Button, Typography, Progress, Card, Result } from 'antd';
+import { Content } from 'antd/es/layout/layout';
 import './style.css'
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
@@ -10,6 +10,8 @@ import { calculatePoints, getDistance, getRandomArbitrary } from '../../utils/ut
 import { Layer, Stage, Image, Group, Rect, Circle, Line } from 'react-konva';
 import useImage from 'use-image';
 import Konva from 'konva';
+import HeaderComponent from '../../components/HeaderComponent';
+import FooterComponent from '../../components/FooterComponent';
 
 const _ = require("lodash");
 
@@ -62,6 +64,11 @@ const GuessPage = () => {
     let spotsArray = spots.filter((value: SpotType) => {
       return value.mapId === mapObject.id ? value : ''
     })
+
+    if(spotsArray.length===0){
+      setIsError(true)
+      return
+    }
 
     let tmpRandomArray = Array<SpotType>()
     for (var i = 0; i < 3; i++) {
@@ -184,11 +191,9 @@ const GuessPage = () => {
 
   return (
     <Layout>
-      <Header>
-        ESO Guessr
-      </Header>
+      <HeaderComponent/>
       <Content>
-        {isLoading && <Spin></Spin>}
+        {(isLoading && status==="loading" && !isError) && <Spin></Spin>}
         {(!isLoading && !isFinished) &&
           <>
             <div className="progressWrapper">
@@ -202,13 +207,13 @@ const GuessPage = () => {
                     <Group draggable onWheel={handleScroll} onClick={handleMapClick} ref={group}>
                       <Image image={mapImage} x={0} y={0} width={size} height={size} />
                       {
-                        isLocked ? <Line points={[mark.x, mark.y, currentSpot.x, currentSpot.y]} stroke={"green"} strokeWidth={2} lineJoin={"round"} dash={[10, 5]} /> : ''
+                        isLocked ? <Line points={[mark.x, mark.y, currentSpot.x, currentSpot.y]} stroke={"#1fb572"} strokeWidth={2} lineJoin={"round"} dash={[10, 5]} /> : ''
                       }
                       {
-                        isPlaced ? <Rect x={mark.x} y={mark.y} width={mark.width} height={mark.height} stroke={mark.stroke} offset={mark.offset} rotation={mark.rotation} /> : ''
+                        isPlaced ? <Rect x={mark.x} y={mark.y} width={mark.width} height={mark.height} stroke={mark.stroke} strokeWidth={1} offset={mark.offset} rotation={mark.rotation} /> : ''
                       }
                       {
-                        isLocked ? <Circle x={currentSpot.x} y={currentSpot.y} fill={'#dd000'} radius={2.5} /> : ''
+                        isLocked ? <Circle x={currentSpot.x} y={currentSpot.y} fill={'#1668dc'} radius={2.5} /> : ''
                       }
                     </Group>
                   </Layer>
@@ -232,7 +237,6 @@ const GuessPage = () => {
               </div>
             </div>
           </>
-
         }
         {
           isFinished &&
@@ -253,14 +257,24 @@ const GuessPage = () => {
             </div>
             <div>
               <Button type='primary' onClick={()=>{document.location.reload() }} className='resultsButton'>Try again!</Button>
-              <Button type='default' className='resultsButton'><Link to={`/`}>Home</Link></Button>
+              <Link to={`/`}><Button type='default' className='resultsButton'>Home</Button></Link>
             </div>          
           </div>
         }
+        {
+          isError &&
+          <Result
+            status="error"
+            title="Something went wrong"
+            extra={[
+              <>
+              <Link to={`/`}><Button type='default' className='resultsButton'>Home</Button></Link>
+              </>
+            ]}
+          ></Result>
+        }
       </Content>
-      <Footer>
-        footer
-      </Footer>
+      <FooterComponent />
     </Layout>
   )
 }
