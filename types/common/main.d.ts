@@ -17,3 +17,13 @@ export interface SpotType {
     mapId: MapType.id,
     screenshotLink: string
 }
+
+export interface ScoreType {
+    spotId: number,
+    score: number
+}
+
+export interface FullScoreType {
+    date: number,
+    spots: ScoreType[]
+}

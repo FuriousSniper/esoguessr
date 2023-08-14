@@ -8,3 +8,15 @@
     top: 20px;
     right: 50px;
 }
+
+
+.headerLogo{
+    height: 100%;
+    width: 240px;
+}
+
+.headerLink{
+    margin: 0 45px;
+    padding: 0 20px;
+    color: white;
+}

@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 export const getRandomArbitrary = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -31,4 +33,18 @@ export const calculatePoints = (distance: number, mapId: string) => {
 
         return (-(5/2)*distance + 125)
     }
+}
+
+export const setToLS = (key: string, value: string) => localStorage.setItem(key, value);
+
+export const getFromLS = (key: string): string | null => {
+    return localStorage.getItem(key)
+}
+
+export const initScores = () => {
+    setToLS("scores",JSON.stringify([]))
+}
+
+export const checkScoresExistence = (): boolean => {
+    return _.isNull(getFromLS("scores"))
 }
