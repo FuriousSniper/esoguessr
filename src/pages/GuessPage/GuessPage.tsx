@@ -4,9 +4,9 @@ import './style.css'
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import maps from '../../static/Maps';
-import { MapType, SpotType } from '../../../types/common/main';
+import { FullScoreType, MapType, ScoreType, SpotType } from '../../../types/common/main';
 import spots from '../../static/Spots';
-import { calculatePoints, getDistance, getRandomArbitrary } from '../../utils/utils';
+import { calculatePoints, getDistance, getFromLS, getRandomArbitrary, initScores, setToLS } from '../../utils/utils';
 import { Layer, Stage, Image, Group, Rect, Circle, Line } from 'react-konva';
 import useImage from 'use-image';
 import Konva from 'konva';
@@ -175,11 +175,42 @@ const GuessPage = () => {
     centerMap()
   }
 
+  const saveScore = () => {
+    let spotsScoreArray = Array<ScoreType>()
+
+    for(var i=0;i<randomSpotsArray.length;i++){
+      const score: ScoreType = {
+        spotId: randomSpotsArray[i].id,
+        score: pointsArray[i]
+      }
+      spotsScoreArray.push(score)
+    }
+    const fullScoreObj = {
+      spots: spotsScoreArray,
+      date: Date.now()
+    }
+
+    let currentScoresArray = getFromLS("scores")
+    if(_.isNull(currentScoresArray)){
+      initScores()
+      let fullScoresArray = Array<FullScoreType>()
+      fullScoresArray.push(fullScoreObj)
+      setToLS("scores",JSON.stringify(fullScoresArray))
+      return
+    }
+    else{
+      let fullScoresArray = (JSON.parse(currentScoresArray!) as unknown) as FullScoreType[]
+      fullScoresArray.push(fullScoreObj)
+      setToLS("scores",JSON.stringify(fullScoresArray))
+    }
+  }
+
   const handleNextGuess = () => {
     resetMap()
     const spotIndex = currentSpotIndex + 1
     if (spotIndex >= randomSpotsArray.length) {
       setIsFinished(true)
+      saveScore()
       return
     }
 
@@ -258,6 +289,7 @@ const GuessPage = () => {
             <div>
               <Button type='primary' onClick={()=>{document.location.reload() }} className='resultsButton'>Try again!</Button>
               <Link to={`/`}><Button type='default' className='resultsButton'>Home</Button></Link>
+              <Link to={`/scores`}><Button type='default' className='resultsButton'>Scores</Button></Link>
             </div>          
           </div>
         }

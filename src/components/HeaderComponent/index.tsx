@@ -27,10 +27,12 @@ const HeaderComponent = () => {
     }
 
     return(
-        <Header>
+        <Header style={{display: "flex", justifyContent: "center"}}>
+            <Link to="/scores" className="headerLink">Scores</Link>
             <Link to="/">
-                <img src={"/esoguessr_text_logo_offcenter_white.png"} alt="" className='headerLogo'/>
+                <img src={"/esoguessr_text_logo_white.png"} alt="" className='headerLogo'/>
             </Link>
+            <Link to="/about" className="headerLink">About</Link>
             <button onClick={handlePoolFloat} disabled={isPoolFloatDisabled} className="poolFloatButton"><img src="/icons/poolFloat.webp" alt="Summer time"/></button>
         </Header>
     )
