@@ -1,23 +1,9 @@
-.allianceIcon{
-    width: 50px;
-    height: auto;
-}
-
-.allianceMaps{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.mapsColumn{
+.startTilesWrapper{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-.dlcMaps{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
+.startTiles{
+    margin: 0 20px !important;
 }

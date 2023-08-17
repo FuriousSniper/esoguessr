@@ -223,7 +223,7 @@ const GuessPage = () => {
   return (
     <Layout>
       <HeaderComponent/>
-      <Content>
+      <Content style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
         {(isLoading && status==="loading" && !isError) && <Spin></Spin>}
         {(!isLoading && !isFinished) &&
           <>

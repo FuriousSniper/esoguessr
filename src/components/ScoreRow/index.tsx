@@ -8,7 +8,7 @@ const ScoreRow = (props: {scoreRecord: FullScoreType}) => {
         var date = new Date(props.scoreRecord.date);
         const dmy = date.toLocaleDateString("en-GB"); 
         const hms = date.toLocaleTimeString("it-IT"); 
-        return <>{dmy} {hms}</>
+        return <div className="numberDiv">{dmy} {hms}</div>
     }
     return (
         <div className="scoreRow">
