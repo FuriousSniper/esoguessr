@@ -1,0 +1,21 @@
+.aboutRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+@media (max-width: 1255px) {
+    .aboutRow{
+        display: block;
+    }
+    .description{
+        padding: 5px;
+        margin: 5px;
+    }
+}
+
+.description{
+    padding: 10px;
+    margin: 10px;
+}

@@ -1,0 +1,23 @@
+.allianceIcon{
+    width: 50px;
+    height: auto;
+}
+
+.allianceMaps{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.mapsColumn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dlcMaps{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+}
