@@ -287,12 +287,12 @@ const GuessPage = () => {
               Points: {sumTotalPoints()}/{randomSpotsArray.length * 100}
             </div>
             <div>
-              <Button type='primary' onClick={()=>{document.location.reload() }} className='resultsButton'>Try again!</Button>
-              <Link to={`/`}><Button type='default' className='resultsButton'>Home</Button></Link>
+              
+              <Link to={`/guess`}><Button type='default' className='resultsButton'>Map selection</Button></Link>
               <Link to={`/scores`}><Button type='default' className='resultsButton'>Scores</Button></Link>
             </div>          
-          </div>
-        }
+          </div>//<Button type='primary' onClick={()=>{document.location.reload()}} className='resultsButton'>Try again!</Button>
+        } 
         {
           isError &&
           <Result
@@ -300,7 +300,7 @@ const GuessPage = () => {
             title="Something went wrong"
             extra={[
               <>
-              <Link to={`/`}><Button type='default' className='resultsButton'>Home</Button></Link>
+              <Link to={`/guess`}><Button type='default' className='resultsButton'>Home</Button></Link>
               </>
             ]}
           ></Result>
